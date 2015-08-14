@@ -1,0 +1,34 @@
+{
+    "name": "ruysu/laravel-core",
+    "description": "Core laravel 5.",
+    "authors": [
+        {
+            "name": "Gerardo Gómez",
+            "email": "code@gerardo.im"
+        }
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.1.*",
+        "lucadegasperi/oauth2-server-laravel": "5.0.x-dev",
+        "intervention/image": "^2.3"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ruysu\\Core\\": "src/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
