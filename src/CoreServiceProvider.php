@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruysu\Core\Providers;
+namespace Ruysu\Core;
 
 use Ruysu\Core\Support\ServiceProvider;
 
@@ -24,7 +24,7 @@ class CoreServiceProvider extends ServiceProvider
      */
     protected function setupConfig()
     {
-        $source = realpath(__DIR__ . '/../../config/core.php');
+        $source = realpath(__DIR__ . '/../config/core.php');
         $this->publishes([$source => config_path('core.php')], 'config');
         $this->mergeConfigFrom($source, 'core');
     }
@@ -35,13 +35,13 @@ class CoreServiceProvider extends ServiceProvider
      */
     protected function setupMigrations()
     {
-        $source = realpath(__DIR__ . '/../../database/migrations/');
+        $source = realpath(__DIR__ . '/../database/migrations/');
         $this->publishes([$source => database_path('migrations')], 'migrations');
     }
 
     protected function setupLang()
     {
-        $source = realpath(__DIR___ . '/../../lang');
+        $source = realpath(__DIR___ . '/../resources/lang');
 
         if (is_dir($path = base_path('/resources/lang/packages/' . PACKAGE_NAME))) {
             $this->loadTranslationsFrom($path, 'core');
@@ -58,7 +58,7 @@ class CoreServiceProvider extends ServiceProvider
      */
     protected function setupViews()
     {
-        $source = realpath(__DIR___ . '/../../resources/views');
+        $source = realpath(__DIR___ . '/../resources/views');
 
         if (is_dir($path = base_path('/resources/views/packages/' . PACKAGE_NAME))) {
             $this->loadViewsFrom($path, 'core');
