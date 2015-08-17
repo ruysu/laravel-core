@@ -1,0 +1,94 @@
+<?php
+
+namespace $NAMESPACE$;
+
+$USE$
+use Illuminate\Http\Request;
+use Ruysu\Core\Http\Controllers\Controller;
+
+class $CLASSNAME$ extends Controller
+{
+
+    /**
+     * The $MODEL$ model
+     * @var $MODEL$
+     */
+    protected $$COLLECTION$;
+
+    /**
+     * @param $MODEL$ $$COLLECTION$
+     */
+    public function __construct($MODEL$ $$COLLECTION$)
+    {
+        $this->$COLLECTION$ = $$COLLECTION$;
+    }
+
+    /**
+     * Display a listing of $COLLECTION$
+     * @return Response
+     */
+    public function index($SINGLE_PARAMS$)
+    {
+        $$COLLECTION$ = $this->$COLLECTION$->all();
+        return $$COLLECTION$;
+    }
+
+    /**
+     * Store a newly created $RESOURCE$ in storage.
+     * @return Response
+     */
+    public function store($STORE_PARAMS$)
+    {
+        $$RESOURCE$ = $this->$COLLECTION$->newInstance($request->all());
+
+        if ($$RESOURCE$->save()) {
+            return $$RESOURCE$;
+        }
+
+        return response()->json(['error' => 'unable_to_create', 'error_message' => 'Unable to create']);
+    }
+
+    /**
+     * Display the specified $RESOURCE$.
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($RESOURCE_PARAMS$)
+    {
+        $$RESOURCE$ = $this->$COLLECTION$->findOrFail($id);
+        return $$RESOURCE$;
+    }
+
+    /**
+     * Update the specified $RESOURCE$ in storage.
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($UPDATE_PARAMS$)
+    {
+        $$RESOURCE$ = $this->$COLLECTION$->findOrFail($id);
+
+        $$RESOURCE$->fill($request->all());
+
+        if ($$RESOURCE$->save()) {
+            return $$RESOURCE$;
+        }
+
+        return response()->json(['error' => 'unable_to_update', 'error_message' => 'Unable to update']);
+    }
+
+    /**
+     * Remove the specified $RESOURCE$ from storage.
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($RESOURCE_PARAMS$)
+    {
+        if ($this->$COLLECTION$->destroy($id)) {
+            return response()->json(true);
+        }
+
+        return response()->json(['error' => 'unable_to_destroy', 'error_message' => 'Unable to destroy']);
+    }
+
+}

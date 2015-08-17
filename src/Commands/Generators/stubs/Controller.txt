@@ -1,0 +1,117 @@
+<?php
+
+namespace $NAMESPACE$;
+
+$USE$
+use Illuminate\Http\Request;
+use Ruysu\Core\Http\Controllers\Controller;
+
+class $CLASSNAME$ extends Controller
+{
+
+    /**
+     * The $MODEL$ model
+     * @var $MODEL$
+     */
+    protected $$COLLECTION$;
+
+    /**
+     * @param $MODEL$ $$COLLECTION$
+     */
+    public function __construct($MODEL$ $$COLLECTION$)
+    {
+        $this->$COLLECTION$ = $$COLLECTION$;
+    }
+
+    /**
+     * Display a listing of $COLLECTION$
+     * @return Response
+     */
+    public function index($SINGLE_PARAMS$)
+    {
+        $$COLLECTION$ = $this->$COLLECTION$->all();
+
+        return view('$COLLECTION$.index', compact('$COLLECTION$'));
+    }
+
+    /**
+     * Show the form for creating a new $RESOURCE$
+     * @return Response
+     */
+    public function create($SINGLE_PARAMS$)
+    {
+        return view('$COLLECTION$.create');
+    }
+
+    /**
+     * Store a newly created $RESOURCE$ in storage.
+     * @return Response
+     */
+    public function store($STORE_PARAMS$)
+    {
+        $$RESOURCE$ = $this->$COLLECTION$->newInstance($request->all());
+
+        if ($$RESOURCE$->save()) {
+            return $this->redirect('edit', [$$RESOURCE$->id])->with('notice', ['success', 'Created successfully']);
+        }
+
+        return $this->redirect('create')->with('notice', ['danger', 'Unable to create']);
+    }
+
+    /**
+     * Display the specified $RESOURCE$.
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($RESOURCE_PARAMS$)
+    {
+        $$RESOURCE$ = $this->$COLLECTION$->findOrFail($id);
+
+        return view('$COLLECTION$.show', compact('$RESOURCE$'));
+    }
+
+    /**
+     * Show the form for editing the specified $RESOURCE$.
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($RESOURCE_PARAMS$)
+    {
+        $$RESOURCE$ = $this->$COLLECTION$->findOrFail($id);
+
+        return view('$COLLECTION$.edit', compact('$RESOURCE$'));
+    }
+
+    /**
+     * Update the specified $RESOURCE$ in storage.
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($UPDATE_PARAMS$)
+    {
+        $$RESOURCE$ = $this->$COLLECTION$->findOrFail($id);
+
+        $$RESOURCE$->fill($request->all());
+
+        if ($$RESOURCE$->save()) {
+            return $this->redirect('edit', [$$RESOURCE$->id])->with('notice', ['success', 'Updated successfully']);
+        }
+
+        return redirect()->back()->with('notice', ['danger', 'Unable to update']);
+    }
+
+    /**
+     * Remove the specified $RESOURCE$ from storage.
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($RESOURCE_PARAMS$)
+    {
+        if ($this->$COLLECTION$->destroy($id)) {
+            return redirect()->back()->with('notice', ['success', 'Destroyed successfully']);
+        }
+
+        return redirect()->back()->with('notice', ['danger', 'Unable to destroy']);
+    }
+
+}

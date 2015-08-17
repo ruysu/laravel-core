@@ -2,6 +2,10 @@
 
 namespace Ruysu\Core;
 
+use Ruysu\Core\Commands\Generators\Controller as GenerateController;
+use Ruysu\Core\Commands\Generators\FormRequest as GenerateFormRequest;
+use Ruysu\Core\Commands\Generators\Model as GenerateModel;
+use Ruysu\Core\Commands\Generators\Views as GenerateViews;
 use Ruysu\Core\Support\ServiceProvider;
 
 class CoreServiceProvider extends ServiceProvider
@@ -16,6 +20,17 @@ class CoreServiceProvider extends ServiceProvider
         $this->setupConfig();
         $this->setupMigrations();
         $this->setupViews();
+        $this->setupCommands();
+    }
+
+    protected function setupCommands()
+    {
+        $this->commands([
+            GenerateController::class,
+            GenerateFormRequest::class,
+            GenerateModel::class,
+            GenerateViews::class,
+        ]);
     }
 
     /**

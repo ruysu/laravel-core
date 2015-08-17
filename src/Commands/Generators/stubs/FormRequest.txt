@@ -1,0 +1,20 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use App\Core\Http\$BASECLASS$;
+
+class $CLASSNAME$ extends $BASECLASS$
+{
+
+    /**
+     * Rules used to validate all requests
+     * @return array
+     */
+    protected function rulesForAll()
+    {
+        return [
+        ];
+    }
+
+}

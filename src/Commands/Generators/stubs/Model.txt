@@ -1,0 +1,28 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Ruysu\Core\Eloquent\Model;
+
+class $CLASSNAME$ extends Model
+{
+
+    /**
+     * Fillable attributes
+     * @var array
+     */
+    protected $fillable = [$FILLABLE$];
+
+    /**
+     * Additional date attribues
+     * @var array
+     */
+    protected $dates = [$DATES$];
+
+    /**
+     * Hidden attribues
+     * @var array
+     */
+    protected $hidden = [$HIDDEN$];
+
+}
