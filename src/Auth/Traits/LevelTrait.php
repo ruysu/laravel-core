@@ -6,12 +6,6 @@ trait LevelTrait
 {
 
     /**
-     * The table where the models are stored
-     * @var string
-     */
-    protected $table = 'users';
-
-    /**
      * Boot this trait
      * @return void
      */
