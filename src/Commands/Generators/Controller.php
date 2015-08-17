@@ -58,7 +58,7 @@ class Controller extends Generator
         $update_form_request = $this->option('update_form_request') ?: $form_request;
         $single_params = [];
         $resource_params = ['$id'];
-        $store_params = ['$id', 'Request $request'];
+        $store_params = ['Request $request'];
         $update_params = array_merge($resource_params, ['Request $request']);
 
         if ($nested) {
