@@ -2,6 +2,8 @@
 
 namespace Ruysu\Core\Auth\Traits;
 
+use Ruysu\Core\Auth\Scopes\LevelScope;
+
 trait LevelTrait
 {
 
