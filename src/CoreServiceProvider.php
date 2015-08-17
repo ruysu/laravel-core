@@ -56,9 +56,9 @@ class CoreServiceProvider extends ServiceProvider
 
     protected function setupLang()
     {
-        $source = realpath(__DIR___ . '/../resources/lang');
+        $source = realpath(__DIR__ . '/../resources/lang');
 
-        if (is_dir($path = base_path('/resources/lang/packages/' . PACKAGE_NAME))) {
+        if (is_dir($path = base_path('/resources/lang/packages/ruysu/laravel-core'))) {
             $this->loadTranslationsFrom($path, 'core');
         } else {
             $this->loadTranslationsFrom($source, 'core');
@@ -73,9 +73,9 @@ class CoreServiceProvider extends ServiceProvider
      */
     protected function setupViews()
     {
-        $source = realpath(__DIR___ . '/../resources/views');
+        $source = realpath(__DIR__ . '/../resources/views');
 
-        if (is_dir($path = base_path('/resources/views/packages/' . PACKAGE_NAME))) {
+        if (is_dir($path = base_path('/resources/views/packages/ruysu/laravel-core'))) {
             $this->loadViewsFrom($path, 'core');
         } else {
             $this->loadViewsFrom($source, 'core');
