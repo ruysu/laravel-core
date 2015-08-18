@@ -28,7 +28,7 @@ class Role extends Model
      */
     public function permissions()
     {
-        return $this->belongsToMany('Ruysu\Core\Auth\Permission');
+        return $this->belongsToMany('Ruysu\Core\Auth\Models\Permission');
     }
 
 }

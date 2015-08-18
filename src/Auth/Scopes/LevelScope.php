@@ -3,6 +3,7 @@
 namespace Ruysu\Core\Auth\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ScopeInterface;
 
 class LevelScope implements ScopeInterface
@@ -22,9 +23,10 @@ class LevelScope implements ScopeInterface
     /**
      * Apply the scope to a given Eloquent query builder.
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  \Illuminate\Database\Eloquent\Model    $builder
      * @return void
      */
-    public function apply(Builder $builder)
+    public function apply(Builder $builder, Model $model)
     {
         $builder->whereRaw("level = {$this->level}");
     }
@@ -32,9 +34,10 @@ class LevelScope implements ScopeInterface
     /**
      * Remove the scope from the given Eloquent query builder.
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  \Illuminate\Database\Eloquent\Model    $builder
      * @return void
      */
-    public function remove(Builder $builder)
+    public function remove(Builder $builder, Model $model)
     {
     }
 

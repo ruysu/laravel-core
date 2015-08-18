@@ -40,6 +40,10 @@ abstract class FormRequest extends LaravelFormRequest
         $action = $this->getCurrentAction();
         $method = camel_case("rules_for_{$action}");
 
+        if (method_exists($this, 'prepare')) {
+            $this->prepare();
+        }
+
         if (method_exists($this, $method)) {
             $rules = $this->$method();
         } else {
@@ -122,7 +126,7 @@ abstract class FormRequest extends LaravelFormRequest
         static $action;
 
         if (!$action) {
-            $action = $this->removeVerbs($this->container['router']->current()->getActionName());
+            $action = $this->removeVerbs($this->route()->getActionName());
         }
 
         return $action;

@@ -44,7 +44,7 @@ abstract class User extends Model implements AuthenticatableContract, CanResetPa
      */
     public function roles()
     {
-        return $this->belongsToMany('Ruysu\Core\Auth\Role');
+        return $this->belongsToMany('Ruysu\Core\Auth\Models\Role');
     }
 
     /**
