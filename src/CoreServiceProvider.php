@@ -11,6 +11,10 @@ use Ruysu\Core\Support\ServiceProvider;
 class CoreServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register this service provider
+     * @return void
+     */
     public function register()
     {
         $this->app->register('LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider');
