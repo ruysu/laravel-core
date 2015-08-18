@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruysu\Core\Console\Commands\OAuth;
+namespace Ruysu\Core\Commands\OAuth;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\SelfHandling;
