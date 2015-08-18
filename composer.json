@@ -13,7 +13,9 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "lucadegasperi/oauth2-server-laravel": "5.0.x-dev",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "anlutro/l4-settings": "^0.4.0",
+        "pda/pheanstalk": "~2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

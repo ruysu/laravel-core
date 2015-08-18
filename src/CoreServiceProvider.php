@@ -11,6 +11,14 @@ use Ruysu\Core\Support\ServiceProvider;
 class CoreServiceProvider extends ServiceProvider
 {
 
+    public function register()
+    {
+        $this->app->register('LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider');
+        $this->app->register('LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider');
+        $this->app->register('Intervention\Image\ImageServiceProvider');
+        $this->app->register('anlutro\LaravelSettings\ServiceProvider');
+    }
+
     /**
      * Boot the service provider.
      * @return void
