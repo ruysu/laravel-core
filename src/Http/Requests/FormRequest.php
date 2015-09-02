@@ -32,6 +32,21 @@ abstract class FormRequest extends LaravelFormRequest
     }
 
     /**
+     * Get the validator instance for the request.
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function getValidatorInstance()
+    {
+        $instance = parent::getValidatorInstance();
+
+        if (method_exists($this, 'prepareValidator')) {
+            $this->prepareValidator($instance);
+        }
+
+        return $instance;
+    }
+
+    /**
      * Get the validation rules that apply to the current request
      * @return array
      */
