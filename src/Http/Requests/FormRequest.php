@@ -84,6 +84,15 @@ abstract class FormRequest extends LaravelFormRequest
     }
 
     /**
+     * Construct an exists validation rule.
+     * @return string
+     */
+    protected function existsRule($table, $column, $softDelete = false)
+    {
+        return "exists:{$table},{$column}" . ($softDelete ? ',deleted_at,NULL' : '');
+    }
+
+    /**
      * Tell the validator to replace a certain value in the rules. (taken form anlutro/l4-validation)
      * @param  string $key
      * @param  string $value
