@@ -27,7 +27,10 @@
     "autoload": {
         "psr-4": {
             "Ruysu\\Core\\": "src/"
-        }
+        },
+        "files" : [
+            "src/Support/helpers.php"
+        ]
     },
     "config": {
         "preferred-install": "dist"
