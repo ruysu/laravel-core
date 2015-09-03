@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruysu\Core\Auth\Traits;
+namespace Ruysu\Core\Auth\Levels;
 
 use Ruysu\Core\Auth\Scopes\LevelScope;
 

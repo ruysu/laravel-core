@@ -48,34 +48,6 @@ abstract class User extends Model implements AuthenticatableContract, CanResetPa
     }
 
     /**
-     * Get the permissions by role
-     * @return array
-     */
-    public function getPermissionsAttribute()
-    {
-        if (!array_key_exists('roles', $this->relations)) {
-            $this->load('roles', 'roles.permissions');
-        }
-
-        $roles = $this->relations['roles']->lists('name')->toArray();
-        $permissions = $this->relations['roles']->pluck('permissions')->transform(function ($permissions) {
-            return $permissions->lists('name', 'slug');
-        })->toArray();
-
-        return array_combine($roles, $permissions);
-    }
-
-    /**
-     * Get plain list of all permissions regardless of role
-     * @return array
-     */
-    public function getPlainPermissionsAttribute()
-    {
-        $permissions = $this->getPermissionsAttribute();
-        return call_user_func_array('array_merge', array_values($permissions));
-    }
-
-    /**
      * Filter results by a user level
      * @param  Builder $query
      * @return void
@@ -88,12 +60,82 @@ abstract class User extends Model implements AuthenticatableContract, CanResetPa
     }
 
     /**
+     * Get the role ids
+     * @return array
+     */
+    public function getRoleIdsAttribute()
+    {
+        if (!array_key_exists('roles', $this->relations)) {
+            $this->load('roles');
+        }
+
+        return $this->relations['roles']->lists('id');
+    }
+
+    /**
+     * Get the permissions by role
+     * @return array
+     */
+    public function getPermissionsAttribute()
+    {
+        if (!array_key_exists('roles', $this->relations)) {
+            $this->load('roles', 'roles.permissions');
+        }
+
+        if (empty($this->relations['roles'])) {
+            return [];
+        }
+
+        // load permissions in case they have not been loaded
+        if (
+            ($role = $this->relations['roles']->first()) &&
+            !array_key_exists('permissions', $role->getRelations())
+        ) {
+            $this->relations['roles']->load('permissions');
+        }
+
+        $roles = $this->relations['roles']->lists('name')->toArray();
+
+        $permissions = $this->relations['roles']
+            ->pluck('permissions')
+            ->transform(function ($permissions) {
+                return $permissions ? $permissions->lists('name', 'slug') : [];
+            })->toArray();
+
+        return array_combine($roles, $permissions);
+    }
+
+    /**
+     * Get plain list of all permissions regardless of role
+     * @return array
+     */
+    public function getPlainPermissionsAttribute()
+    {
+        $permissions = $this->getPermissionsAttribute();
+
+        if (count($permissions)) {
+            return call_user_func_array('array_merge', array_values($permissions));
+        }
+
+        return [];
+    }
+
+    /**
      * Determine if a user is an Admin
      * @return boolean
      */
     public function getIsAdminAttribute()
     {
         return (int) $this->getAttributeFromArray('level') == 255;
+    }
+
+    /**
+     * Determine if a user is the one authenticated
+     * @return boolean
+     */
+    public function getIsMeAttribute()
+    {
+        return $this->getAttributeFromArray('id') == auth()->id();
     }
 
     /**
@@ -107,13 +149,13 @@ abstract class User extends Model implements AuthenticatableContract, CanResetPa
     }
 
     /**
-     * Determine if current model user is the currently authenticated user
-     * @return boolean
+     * Get the avatar image link
+     * @return string
      */
-    public function getIsMeAttribute()
+    public function getAvatarAttribute()
     {
-        $auth = auth();
-        return $auth->check() && $auth->id() == $this->getKey();
+        $picture = $this->getAttributeFromArray('picture');
+        return $picture ? (starts_with($picture, 'http') ? $picture : asset("uploads/{$picture}")) : $this->getGravatarAttribute();
     }
 
 }

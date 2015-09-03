@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruysu\Core\Auth\Observers;
+namespace Ruysu\Core\Auth\Ownable;
 
 use Illuminate\Contracts\Auth\Guard;
 
@@ -26,7 +26,7 @@ class OwnableObserver
      * @param  Model        $model
      * @return void|boolean
      */
-    public function creating($model)
+    public function creating(OwnableInterface $model)
     {
         if (!$model->user_id) {
             $user = $this->auth->user();
@@ -44,7 +44,7 @@ class OwnableObserver
      * @param  Model        $model
      * @return void|boolean
      */
-    public function updating($model)
+    public function updating(OwnableInterface $model)
     {
         $user = $this->auth->user();
         $is_admin = $user && $user->is_admin;
@@ -59,7 +59,7 @@ class OwnableObserver
      * @param  Model        $model
      * @return void|boolean
      */
-    public function deleting($model)
+    public function deleting(OwnableInterface $model)
     {
         $user = $this->auth->user();
         $is_admin = $user && $user->is_admin;

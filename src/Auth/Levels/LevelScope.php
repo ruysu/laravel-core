@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruysu\Core\Auth\Scopes;
+namespace Ruysu\Core\Auth\Levels;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

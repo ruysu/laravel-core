@@ -21,6 +21,12 @@ class OAuthPasswordGrantVerifier
         $this->auth = $auth;
     }
 
+    /**
+     * Check credentials for oauth password grant
+     * @param  string $username
+     * @param  sting $password
+     * @return boolean|int
+     */
     public function verify($username, $password)
     {
         $credentials = compact('password');

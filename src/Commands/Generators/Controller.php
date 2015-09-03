@@ -58,8 +58,8 @@ class Controller extends Generator
         $update_form_request = $this->option('update_form_request') ?: $form_request;
         $single_params = [];
         $resource_params = ['$id'];
-        $store_params = ['Request $request'];
-        $update_params = array_merge($resource_params, ['Request $request']);
+        $store_params = [];
+        $update_params = array_merge($resource_params, []);
 
         if ($nested) {
             $single_params = array_merge([$nested], $single_params);
@@ -69,11 +69,15 @@ class Controller extends Generator
         }
 
         if ($form_request) {
-            $store_params = array_merge($store_params, ["{$form_request} \$form_request"]);
+            $store_params = array_merge($store_params, ["{$form_request} \$request"]);
+        } else {
+            $store_params = array_merge($store_params, ['Request $request']);
         }
 
         if ($update_form_request) {
-            $update_params = array_merge($update_params, ["{$update_form_request} \$form_request"]);
+            $update_params = array_merge($update_params, ["{$update_form_request} \$request"]);
+        } else {
+            $update_params = array_merge($update_params, ['Request $request']);
         }
 
         $single_params = implode(', ', $single_params);

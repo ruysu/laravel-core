@@ -6,6 +6,7 @@ use Ruysu\Core\Commands\Generators\Controller as GenerateController;
 use Ruysu\Core\Commands\Generators\FormRequest as GenerateFormRequest;
 use Ruysu\Core\Commands\Generators\Model as GenerateModel;
 use Ruysu\Core\Commands\Generators\Views as GenerateViews;
+use Ruysu\Core\Commands\OAuth\CreateClient;
 use Ruysu\Core\Support\ServiceProvider;
 
 class CoreServiceProvider extends ServiceProvider
@@ -35,6 +36,10 @@ class CoreServiceProvider extends ServiceProvider
         $this->setupCommands();
     }
 
+    /**
+     * Add commands to artisan
+     * @return void
+     */
     protected function setupCommands()
     {
         $this->commands([
@@ -42,6 +47,7 @@ class CoreServiceProvider extends ServiceProvider
             GenerateFormRequest::class,
             GenerateModel::class,
             GenerateViews::class,
+            CreateClient::class,
         ]);
     }
 
@@ -66,11 +72,15 @@ class CoreServiceProvider extends ServiceProvider
         $this->publishes([$source => database_path('migrations')], 'migrations');
     }
 
+    /**
+     * Setup lang files
+     * @return void
+     */
     protected function setupLang()
     {
         $source = realpath(__DIR__ . '/../resources/lang');
 
-        if (is_dir($path = base_path('/resources/lang/packages/ruysu/laravel-core'))) {
+        if (is_dir($path = base_path('/resources/lang/vendor/laravel-core'))) {
             $this->loadTranslationsFrom($path, 'core');
         } else {
             $this->loadTranslationsFrom($source, 'core');
@@ -87,7 +97,8 @@ class CoreServiceProvider extends ServiceProvider
     {
         $source = realpath(__DIR__ . '/../resources/views');
 
-        if (is_dir($path = base_path('/resources/views/packages/ruysu/laravel-core'))) {
+        // if views have been published, load from published directory
+        if (is_dir($path = base_path('/resources/views/vendor/laravel-core'))) {
             $this->loadViewsFrom($path, 'core');
         } else {
             $this->loadViewsFrom($source, 'core');

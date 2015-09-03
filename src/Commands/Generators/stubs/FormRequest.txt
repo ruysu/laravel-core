@@ -2,7 +2,7 @@
 
 namespace $NAMESPACE$;
 
-use App\Core\Http\$BASECLASS$;
+use Ruysu\Core\Http\$BASECLASS$;
 
 class $CLASSNAME$ extends $BASECLASS$
 {

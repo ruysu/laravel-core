@@ -1,6 +1,8 @@
 <?php
 
-namespace Ruysu\Core\Auth\Traits;
+namespace Ruysu\Core\Auth\Ownable;
+
+use Illuminate\Database\Eloquent\Builder;
 
 trait OwnableTrait
 {
@@ -19,7 +21,7 @@ trait OwnableTrait
      * @param  Builder $query
      * @return void
      */
-    public function scopeMine($query)
+    public function scopeMine(Builder $query)
     {
         $query->where('user_id', '=', auth()->id() ?: 0);
     }
@@ -30,7 +32,7 @@ trait OwnableTrait
      * @param  integer $user_id
      * @return void
      */
-    public function scopeBy($query, $user_id = null)
+    public function scopeBy(Builder $query, $user_id = null)
     {
         $query->where('user_id', '=', is_numeric($user_id) ? $user_id : auth()->id());
     }
