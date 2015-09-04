@@ -2,14 +2,10 @@
 
 namespace Ruysu\Core\Services;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
-use Ruysu\Core\Jobs\ResizeImage;
 
-class ImageUploader
+class FileUploader
 {
-
-    use DispatchesJobs;
 
     /**
      * Laravel's request
@@ -18,10 +14,10 @@ class ImageUploader
     protected $request;
 
     /**
-     * Array of jobs to process
+     * Array of files to move
      * @var array
      */
-    protected $jobs = array();
+    protected $files = array();
 
     /**
      * @param Request $request
@@ -51,8 +47,7 @@ class ImageUploader
             $filename = microtime(true) . ".{$extension}";
             $entity->$key = $filename;
 
-            $job = new ResizeImage($source, $path, $filename);
-            $this->jobs[] = $job;
+            $this->files[$source] = compact('path', 'filename');
 
             return $job;
         }
@@ -61,13 +56,14 @@ class ImageUploader
     }
 
     /**
-     * Handle all jobs
+     * Handle all files
      * @return void
      */
     public function upload()
     {
-        foreach ($this->jobs as $job) {
-            $this->dispatch($job);
+        foreach ($this->files as $source => $dest) {
+            $file = new File($source);
+            $file->move($dest['path'], $dest['filename']);
         }
     }
 
