@@ -5,7 +5,7 @@ namespace Ruysu\Core\Http\Controllers\Auth;
 use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Events\Dispatcher as Events;
-use Ruysu\Core\Events\UserRegistered;
+use Ruysu\Core\Events\Auth\UserRegistered;
 use Ruysu\Core\Http\Requests\Auth\AuthRequestInterface;
 
 trait RegistersUsers
