@@ -3,6 +3,7 @@
 namespace Ruysu\Core\Events\Auth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Ruysu\Core\Events\Event;
 
 class UserActivated extends Event
 {
