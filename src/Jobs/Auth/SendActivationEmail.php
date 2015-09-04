@@ -2,7 +2,7 @@
 
 namespace Ruysu\Core\Jobs\Auth;
 
-use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Mail\Mailer;
