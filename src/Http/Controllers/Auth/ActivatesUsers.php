@@ -34,7 +34,7 @@ trait ActivatesUsers
                 isset($data->id) &&
                 is_numeric($data->id) &&
                 isset($data->expires) &&
-                with(new Carbon($data->expires))->gt(Carbon::now())
+                with(new Carbon(date('Y-m-d H:i:s', $data->expires)))->gt(Carbon::now())
             ) {
                 $user = $this->activateUser($data->id);
                 $events->fire(new UserActivated($user));
