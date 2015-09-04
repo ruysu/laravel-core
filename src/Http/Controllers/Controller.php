@@ -20,7 +20,7 @@ abstract class Controller extends LaravelController
      */
     protected function redirect($action = null, array $params = array(), $status = 302)
     {
-        $redirect = app('redirect');
+        $redirect = redirect();
 
         if ($action) {
             $redirect = $redirect->to($this->url($action, $params), $status);
@@ -38,7 +38,7 @@ abstract class Controller extends LaravelController
     protected function url($action, array $params = array())
     {
         $to = $this->action($action);
-        $url = app('url');
+        $url = url();
 
         if (strpos($to, '@') === false) {
             return $url->to($to);

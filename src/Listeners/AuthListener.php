@@ -4,27 +4,15 @@ namespace Ruysu\Core\Listeners;
 
 use DateTime;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Ruysu\Core\Events\UserRegistered;
+use Ruysu\Core\Jobs\Auth\SendActivationEmail;
+use Ruysu\Core\Jobs\Auth\SendWelcomeEmail;
 
-class AuthListener implements ShouldQueue
+class AuthListener
 {
 
-    /**
-     * Mailer service
-     * @var Mailer
-     */
-    protected $mailer;
-
-    /**
-     * Class constructor
-     * @param Mailer $mailer
-     */
-    public function __construct(Mailer $mailer)
-    {
-        $this->mailer = $mailer;
-    }
+    use DispatchesJobs;
 
     /**
      * Actions to run upon login
@@ -48,49 +36,21 @@ class AuthListener implements ShouldQueue
         $user = $event->getUser();
 
         if ($user->active) {
-            $this->dispatchWelcomeEmail($user);
+            $this->dispatch(new SendWelcomeEmail($user));
         } else {
-            $this->dispatchActivateEmail($user);
+            $this->dispatch(new SendActivationEmail($user));
         }
     }
 
     /**
-     * Dispatch the activation email
-     * @param  Authenticatable $user
-     * @return boolean
+     * Actions to run upon activation
+     * @param  UserActivated $event
+     * @return void
      */
-    public function dispatchActivateEmail(Authenticatable $user)
+    public function onActivate(UserActivated $event)
     {
-        $token = app('encrypter')->encrypt(json_encode([
-            'id' => $user->id,
-            'expires' => time() + (3600 * 72),
-        ]));
-
-        return $this->mailer->send(
-            'core::emails.activate',
-            compact('user', 'token'),
-            function ($message) use ($user) {
-                $message->to($user->email);
-                $message->subject(trans('core::auth.emails.activate.subject'));
-            }
-        );
-    }
-
-    /**
-     * Dispatch the activation email
-     * @param  Authenticatable $user
-     * @return boolean
-     */
-    public function dispatchWelcomeEmail(Authenticatable $user)
-    {
-        return $this->mailer->send(
-            'core::emails.welcome',
-            compact('user'),
-            function ($message) use ($user) {
-                $message->to($user->email);
-                $message->subject(trans('core::auth.emails.welcome.subject'));
-            }
-        );
+        $user = $event->getUser();
+        $this->dispatch(new SendWelcomeEmail($user));
     }
 
 }

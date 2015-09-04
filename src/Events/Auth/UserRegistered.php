@@ -1,6 +1,6 @@
 <?php
 
-namespace Ruysu\Core\Events;
+namespace Ruysu\Core\Events\Auth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 

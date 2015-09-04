@@ -24,8 +24,13 @@ abstract class EventServiceProvider extends ServiceProvider
         );
 
         $events->listen(
-            'Ruysu\Core\Events\UserRegistered',
+            'Ruysu\Core\Events\Auth\UserRegistered',
             'Ruysu\Core\Listeners\AuthListener@onRegister'
+        );
+
+        $events->listen(
+            'Ruysu\Core\Events\Auth\UserActivated',
+            'Ruysu\Core\Listeners\AuthListener@onActivate'
         );
     }
 

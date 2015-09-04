@@ -4,9 +4,11 @@ namespace Ruysu\Core\Http\Controllers\Auth;
 
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Encryption\DecryptException;
+use Exception;
+use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Contracts\Events\Dispatcher as Events;
 use Illuminate\Http\Request;
+use Ruysu\Core\Events\Auth\UserActivated;
 
 trait ActivatesUsers
 {
@@ -15,13 +17,17 @@ trait ActivatesUsers
      * Activate a user by token
      * @param  string  $token
      * @param  Request $request
-     * @param  Guard   $auth
+     * @param  Events  $events
      * @return Illuminate\Http\Response
      */
-    public function getActivate($token, Request $request, Guard $auth)
-    {
+    public function getActivate(
+        Encrypter $encrypter,
+        Request $request,
+        Events $events,
+        $token
+    ) {
         try {
-            $data = json_decode(app('encrypter')->decrypt($token));
+            $data = json_decode($encrypter->decrypt($token));
 
             if (
                 is_object($data) &&
@@ -30,12 +36,13 @@ trait ActivatesUsers
                 isset($data->expires) &&
                 with(new Carbon($data->expires))->gt(Carbon::now())
             ) {
-                $this->activateUser($data->id);
+                $user = $this->activateUser($data->id);
+                $events->fire(new UserActivated($user));
                 return $this->userWasActivated($data->id);
             } else {
                 throw new DecryptException("Invalid token");
             }
-        } catch (DecryptException $e) {
+        } catch (Exception $e) {
             return $this->userWasNotActivated();
         }
     }
@@ -43,13 +50,14 @@ trait ActivatesUsers
     /**
      * Activate a user by id
      * @param  string  $id
-     * @return boolean
+     * @return Authenticable
      */
     protected function activateUser($id)
     {
         $user = $this->userById($id);
         $user->active = true;
-        return $user->save();
+        $user->save();
+        return $user;
     }
 
     /**
