@@ -40,7 +40,7 @@ trait ActivatesUsers
                 $events->fire(new UserActivated($user));
                 return $this->userWasActivated($data->id);
             } else {
-                throw new DecryptException("Invalid token");
+                throw new Exception("Invalid token");
             }
         } catch (Exception $e) {
             return $this->userWasNotActivated();
