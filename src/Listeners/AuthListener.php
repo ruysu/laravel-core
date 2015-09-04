@@ -5,7 +5,8 @@ namespace Ruysu\Core\Listeners;
 use DateTime;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Ruysu\Core\Events\UserRegistered;
+use Ruysu\Core\Events\Auth\UserActivated;
+use Ruysu\Core\Events\Auth\UserRegistered;
 use Ruysu\Core\Jobs\Auth\SendActivationEmail;
 use Ruysu\Core\Jobs\Auth\SendWelcomeEmail;
 
