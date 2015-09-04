@@ -37,9 +37,9 @@ class AuthListener
         $user = $event->getUser();
 
         if ($user->active) {
-            $this->dispatch(new SendWelcomeEmail($user));
+            $this->dispatch(new SendWelcomeEmail($user, app()->getLocale()));
         } else {
-            $this->dispatch(new SendActivationEmail($user));
+            $this->dispatch(new SendActivationEmail($user, app()->getLocale()));
         }
     }
 
@@ -51,7 +51,7 @@ class AuthListener
     public function onActivate(UserActivated $event)
     {
         $user = $event->getUser();
-        $this->dispatch(new SendWelcomeEmail($user));
+        $this->dispatch(new SendWelcomeEmail($user, app()->getLocale()));
     }
 
 }
