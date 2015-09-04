@@ -18,7 +18,15 @@ abstract class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        $events->listen('auth.login', 'Ruysu\Core\Listeners\AuthLoginEventHandler');
+        $events->listen(
+            'auth.login',
+            'Ruysu\Core\Listeners\AuthListener@onLogin'
+        );
+
+        $events->listen(
+            'Ruysu\Core\Events\UserRegistered',
+            'Ruysu\Core\Listeners\AuthListener@onRegister'
+        );
     }
 
 }

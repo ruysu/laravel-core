@@ -38,10 +38,12 @@ return array(
         ),
         'activate' => array(
             'success' => 'Tu usuario ha sido activado, ahora puedes iniciar sesión.',
+            'error' => 'Parece que tu enlace ha expirado o no es válido.',
         ),
         'register' => array(
             'error' => 'Algo salió muy mal, por favor intenta de nuevo más tarde.',
             'success' => 'Te has registrado con éxito, por favor sigue los pasos que enviamos a tu correo electrónico para activar tu cuenta.',
+            'success-activated' => 'Te has registrado con éxito, puedes iniciar sesión.',
         ),
         'account' => array(
             'error' => 'Algo salió muy mal, por favor intenta de nuevo más tarde (la información de tu cuenta, no ha sido cambiada).',
@@ -49,6 +51,7 @@ return array(
         ),
         'password' => array(
             'error' => 'Algo salió muy mal, por favor intenta de nuevo más tarde, tu contraseña no se actualizó.',
+            'error-match' => 'Contraseña inválida.',
             'success' => 'Has actializado la información de tu cuenta.',
         ),
         'remind' => array(

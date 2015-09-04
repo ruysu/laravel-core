@@ -29,4 +29,22 @@ class UserRegistered extends Event
         $this->password = $password;
     }
 
+    /**
+     * Get the user
+     * @return Authenticatable
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Get the password
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->user;
+    }
+
 }

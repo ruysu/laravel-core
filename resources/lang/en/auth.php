@@ -38,10 +38,12 @@ return array(
         ),
         'activate' => array(
             'success' => 'Your account has been activated, you can now sign in.',
+            'error' => 'Your token seems to not be valid or to have expire.',
         ),
         'register' => array(
             'error' => 'Something went wrong, please try again later.',
             'success' => 'You have successfully signed up, we sent an e-mail with the steps to activate your account.',
+            'success-activated' => 'You have successfully signed up, you may now log in.',
         ),
         'account' => array(
             'error' => 'Something went wrong, please try again later (yout account information has not been changed).',
@@ -49,6 +51,7 @@ return array(
         ),
         'password' => array(
             'error' => 'Something went wrong, please try again later, your password was not updated.',
+            'error-match' => 'Passwords missmatch.',
             'success' => 'You have updated your account information.',
         ),
         'remind' => array(

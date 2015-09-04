@@ -22,6 +22,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->register('LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider');
         $this->app->register('Intervention\Image\ImageServiceProvider');
         $this->app->register('anlutro\LaravelSettings\ServiceProvider');
+        $this->app->register('AdamWathan\BootForms\BootFormsServiceProvider');
     }
 
     /**
@@ -30,10 +31,11 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->setupCommands();
         $this->setupConfig();
         $this->setupMigrations();
+        $this->setupLang();
         $this->setupViews();
-        $this->setupCommands();
     }
 
     /**
