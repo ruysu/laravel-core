@@ -59,7 +59,7 @@ class Model extends Generator
         $table = $this->option('table') ?: str_plural(snake_case($classname));
 
         return compact(
-            'namespace', 'classname', 'fillable', 'dates', 'hidden'
+            'namespace', 'classname', 'fillable', 'dates', 'hidden', 'table'
         );
     }
 
