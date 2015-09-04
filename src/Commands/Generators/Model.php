@@ -13,6 +13,7 @@ class Model extends Generator
     'generate:model {model_name : The model classname}' .
     ' {--template= : Change the template} {--dest= : Change the destination path}' .
     ' {--namespace= : The class namespace}' .
+    ' {--table= : Table used by the model}' .
     ' {--fillable= : Fillable attributes, comma separated}' .
     ' {--dates= : Date attributes, comma separated}' .
     ' {--hidden= : Hidden attributes, comma separated}';
@@ -54,6 +55,8 @@ class Model extends Generator
             );
             $$collection = implode(', ', $$collection);
         }
+
+        $table = $this->option('table') ?: str_plural(snake_case($classname));
 
         return compact(
             'namespace', 'classname', 'fillable', 'dates', 'hidden'
