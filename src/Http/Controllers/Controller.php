@@ -38,13 +38,12 @@ abstract class Controller extends LaravelController
     protected function url($action, array $params = array())
     {
         $to = $this->action($action);
-        $url = url();
 
         if (strpos($to, '@') === false) {
-            return $url->to($to);
+            return url($to);
         }
 
-        return $url->action('\\' . $to, $params);
+        return action('\\' . $to, $params);
     }
 
     /**

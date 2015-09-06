@@ -38,7 +38,7 @@ return array(
         ),
         'activate' => array(
             'success' => 'Your account has been activated, you can now sign in.',
-            'error' => 'Your token seems to not be valid or to have expire.',
+            'error' => 'Your token seems to not be valid or to have expired.',
         ),
         'register' => array(
             'error' => 'Something went wrong, please try again later.',

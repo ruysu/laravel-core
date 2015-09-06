@@ -99,7 +99,7 @@ trait AuthenticatesUsers
         return redirect($this->loginUrl())
             ->withInput($request->only('username', 'remember'))
             ->withErrors([
-                'username' => trans('core::auth.not-active'),
+                'username' => trans('core::auth.messages.login.not-activated'),
             ]);
     }
 
@@ -113,7 +113,7 @@ trait AuthenticatesUsers
         return redirect($this->loginUrl())
             ->withInput($request->only('username', 'remember'))
             ->withErrors([
-                'username' => trans('core::auth.failed'),
+                'username' => trans('core::auth.messages.login.error'),
             ]);
     }
 
