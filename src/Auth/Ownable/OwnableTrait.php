@@ -57,7 +57,7 @@ trait OwnableTrait
         // define a static variable observe in onder to define whether to attach
         // listeners to the model
         if (!(isset(static::$observe) && static::$observe === false)) {
-            static::observe(app('Ruysu\Core\Auth\Observers\OwnableObserver'));
+            static::observe(app('Ruysu\Core\Auth\Ownable\OwnableObserver'));
         }
     }
 
