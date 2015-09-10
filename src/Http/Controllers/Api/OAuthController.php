@@ -4,6 +4,7 @@ namespace Ruysu\Core\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use LucaDegasperi\OAuth2Server\Authorizer as OAuth;
+use Ruysu\Core\Http\Controllers\Controller;
 
 class OAuthController extends Controller
 {
