@@ -4,6 +4,7 @@ namespace Ruysu\Core\Jobs;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use Intervention\Image\ImageManager;
