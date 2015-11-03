@@ -37,6 +37,12 @@ class ResizeImage extends Job implements SelfHandling, ShouldQueue
     protected $path;
 
     /**
+     * Quality to save the image with
+     * @var string
+     */
+    protected $quality = 70;
+
+    /**
      * @param string $source
      * @param string $path
      * @param string $filename
@@ -47,6 +53,54 @@ class ResizeImage extends Job implements SelfHandling, ShouldQueue
         $this->path = $path;
         $this->source = $source;
         $this->filename = $filename;
+    }
+
+    /**
+     * Path to save the image to
+     * @param  string $path
+     * @return string|ResizeImage
+     */
+    public function path($path = null)
+    {
+        if (is_null($path)) {
+            return $this->path;
+        }
+
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Filename to save the image as
+     * @param  string $filename
+     * @return string|ResizeImage
+     */
+    public function filename($filename = null)
+    {
+        if (is_null($filename)) {
+            return $this->filename;
+        }
+
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * Quality to save the image with
+     * @param  string $quality
+     * @return string|ResizeImage
+     */
+    public function quality($quality = null)
+    {
+        if (is_null($quality)) {
+            return $this->quality;
+        }
+
+        $this->quality = $quality;
+
+        return $this;
     }
 
     /**
@@ -93,12 +147,12 @@ class ResizeImage extends Job implements SelfHandling, ShouldQueue
                 $image->resize($dims->width, null, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                })->save($dest);
+                })->save($dest, $this->quality);
             } else if ($dims->height && !$dims->width) {
                 $image->resize(null, $dims->height, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
-                })->save($dest);
+                })->save($dest, $this->quality);
             } else {
                 if ($dims->padding) {
                     $image->resize($dims->width - $dims->padding, $dims->height - $dims->padding, function ($constraint) {
@@ -113,8 +167,8 @@ class ResizeImage extends Job implements SelfHandling, ShouldQueue
                 }
 
                 $resizer->canvas($dims->width, $dims->height, '#ffffff')
-                ->insert($image, 'center')
-                ->save($dest);
+                    ->insert($image, 'center')
+                    ->save($dest, $this->quality);
             }
 
             $image->reset();
