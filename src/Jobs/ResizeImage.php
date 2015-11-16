@@ -110,9 +110,9 @@ class ResizeImage extends Job implements SelfHandling, ShouldQueue
      * @param integer $height
      * @param integer $padding
      */
-    public function addSize($size, $width = null, $height = null, $padding = 0)
+    public function addSize($size, $width = null, $height = null, $padding = 0, $bg = '#ffffff')
     {
-        $this->sizes->put($size, new Fluent(compact('width', 'height', 'padding')));
+        $this->sizes->put($size, new Fluent(compact('width', 'height', 'padding', 'bg')));
         return $this;
     }
 
@@ -122,9 +122,9 @@ class ResizeImage extends Job implements SelfHandling, ShouldQueue
      * @param integer $side
      * @param integer $padding
      */
-    public function addSquare($size, $side, $padding = 0)
+    public function addSquare($size, $side, $padding = 0, $bg = '#ffffff')
     {
-        return $this->addSize($size, $side, $side, $padding);
+        return $this->addSize($size, $side, $side, $padding, $bg);
     }
 
     /**
@@ -166,7 +166,7 @@ class ResizeImage extends Job implements SelfHandling, ShouldQueue
                     });
                 }
 
-                $resizer->canvas($dims->width, $dims->height, '#ffffff')
+                $resizer->canvas($dims->width, $dims->height, $dims->bg)
                     ->insert($image, 'center')
                     ->save($dest, $this->quality);
             }
