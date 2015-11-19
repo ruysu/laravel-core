@@ -16,7 +16,7 @@
         "intervention/image": "^2.3",
         "adamwathan/bootforms": "^0.6.3",
         "anlutro/l4-settings": "^0.4.0",
-        "pda/pheanstalk": "~2.0"
+        "pda/pheanstalk": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
