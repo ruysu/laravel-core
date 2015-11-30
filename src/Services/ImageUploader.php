@@ -45,13 +45,14 @@ class ImageUploader
             ($file = $this->request->file($key)) &&
             $file->isValid()
         ) {
-            $source = $file->getRealPath();
             $extension = $file->getClientOriginalExtension();
+            $name = basename($file->getRealPath());
+            $file->move($source = storage_path('app/catalog'));
             $path = $path ?: public_path('uploads');
             $filename = microtime(true) . ".{$extension}";
             $entity->$key = $filename;
 
-            $job = new ResizeImage($source, $path, $filename);
+            $job = new ResizeImage("{$source}/{$name}", $path, $filename);
             $this->jobs[] = $job;
 
             return $job;
